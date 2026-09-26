@@ -26,7 +26,7 @@ const SITE_CONFIG = {
   },
   images: {
     heroBase: `${import.meta.env.BASE_URL}portrait.jpg`, // Bust cutout against clean bg
-    heroCyber: `${import.meta.env.BASE_URL}vision_pro_mask.jpg`, // Visor/Helmet mask reveal
+    heroCyber: `${import.meta.env.BASE_URL}omni_nano_banana.jpg`, // Visor/Helmet mask reveal
     signaturePortrait: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80",
     splitLeft: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80",
     splitRight: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80",
@@ -128,14 +128,6 @@ function HeroBlobRevealPortrait() {
         
         // Draw the hidden cyber/helmet layer exactly inside the blob
         ctx.drawImage(imagesRef.current.reveal, 0, 0, width, height);
-        
-        // Crisp Neon Outline
-        ctx.strokeStyle = "#D2FF00";
-        ctx.lineWidth = 6;
-        ctx.stroke();
-        ctx.shadowColor = "#D2FF00";
-        ctx.shadowBlur = 15;
-        ctx.stroke();
         
         ctx.restore();
       }
