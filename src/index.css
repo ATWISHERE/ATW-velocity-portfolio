@@ -2,57 +2,71 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-  .clip-notched-top {
-    clip-path: polygon(
-      0 3rem, 
-      calc(50% - 4rem) 3rem, 
-      50% 0, 
-      calc(50% + 4rem) 3rem, 
-      100% 3rem, 
-      100% 100%, 
-      0 100%
-    );
-  }
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
+html { scroll-behavior: smooth; }
 body {
+  margin: 0; padding: 0;
   overflow-x: clip;
-  margin: 0;
-  padding: 0;
   background-color: #F4F4ED;
-  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
-.liquid-mask {
-  mask-image: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, transparent 30%);
-  -webkit-mask-image: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, transparent 30%);
+/* Preloader Animation */
+.preloader-path {
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: drawStroke 1.5s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+@keyframes drawStroke { to { stroke-dashoffset: 0; } }
+
+/* Hide Scrollbar */
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Continuous Marquee */
+.marquee-track { display: flex; width: max-content; animation: marquee 30s linear infinite; }
+.marquee-track-reverse { display: flex; width: max-content; animation: marquee-reverse 30s linear infinite; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+@keyframes marquee-reverse { to { transform: translateX(50%); } }
+
+/* Neon Block Wipe */
+.block-wipe {
+  position: relative;
+  display: inline-block;
+  color: transparent; /* Text hidden initially */
+}
+.block-wipe::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: #D2FF00;
+  transform-origin: left;
+  transform: scaleX(0);
+}
+.block-wipe.wiped {
+  color: inherit;
+  transition: color 0.1s linear 0.4s; /* Text appears when block covers it */
+}
+.block-wipe.wiped::after {
+  animation: blockSwipe 1s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+@keyframes blockSwipe {
+  0% { transform-origin: left; transform: scaleX(0); }
+  49.9% { transform-origin: left; transform: scaleX(1); }
+  50% { transform-origin: right; transform: scaleX(1); }
+  100% { transform-origin: right; transform: scaleX(0); }
 }
 
-.signature-path {
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-}
-
-.marquee-track {
-  display: flex;
-  width: max-content;
-  animation: marquee 25s linear infinite;
-}
-
-@keyframes marquee {
-  to { transform: translateX(-50%); }
-}
-
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.hide-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+/* Exact Racing Notch for Footer */
+.clip-footer-notch {
+  clip-path: polygon(
+    0 3rem, 
+    calc(50% - 6rem) 3rem, 
+    calc(50% - 4.5rem) 0, 
+    calc(50% + 4.5rem) 0, 
+    calc(50% + 6rem) 3rem, 
+    100% 3rem, 
+    100% 100%, 
+    0 100%
+  );
 }
