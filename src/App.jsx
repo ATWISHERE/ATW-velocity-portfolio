@@ -25,8 +25,8 @@ const SITE_CONFIG = {
     roleSecondary: "Automation & Data Science Engineer"
   },
   images: {
-    heroBase: "https://images.unsplash.com/photo-1544894468-1ebccb3eb720?auto=format&fit=crop&q=80", // Bust cutout against clean bg
-    heroCyber: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80", // Visor/Helmet mask reveal
+    heroBase: "/portrait.jpg", // Bust cutout against clean bg
+    heroCyber: "/vision_pro_mask.jpg", // Visor/Helmet mask reveal
     signaturePortrait: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80",
     splitLeft: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80",
     splitRight: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80",
@@ -290,8 +290,8 @@ export default function App() {
                <path className="preloader-path" d="M20,75 L20,25 L45,25 L45,55 L80,25 L80,75" fill="none" stroke="#111112" strokeWidth="8" strokeLinecap="square" />
              </svg>
            ) : (
-             <h1 className="text-[8rem] font-black tracking-tighter text-[#111112] leading-none animate-pulse">
-               {SITE_CONFIG.identity.numberCode}
+             <h1 className="text-[6rem] md:text-[8rem] font-black tracking-tighter text-[#111112] leading-none animate-pulse">
+               {SITE_CONFIG.identity.shortCode}
              </h1>
            )}
         </div>
