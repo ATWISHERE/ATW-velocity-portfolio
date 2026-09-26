@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import Lenis from '@studio-freight/lenis';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ShoppingBag, ArrowUpRight, Menu, X } from 'lucide-react';
 
@@ -323,6 +324,7 @@ function HeroBlobRevealPortrait() {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
   const pointsRef = useRef([]);
+  const mouseRef = useRef({ x: 300, y: 350, targetX: 300, targetY: 350, vx: 0, vy: 0 });
   const imagesRef = useRef({ base: null, reveal: null, loaded: 0 });
 
   useEffect(() => {
@@ -357,7 +359,17 @@ function HeroBlobRevealPortrait() {
 
       // 2. Age and filter trailing mouse blob points
       const now = performance.now();
-      pointsRef.current = pointsRef.current.filter((p) => now - p.time < 650);
+      const m = mouseRef.current;
+      m.vx += (m.targetX - m.x) * 0.15;
+      m.vy += (m.targetY - m.y) * 0.15;
+      m.vx *= 0.7;
+      m.vy *= 0.7;
+      m.x += m.vx;
+      m.y += m.vy;
+      if (Math.abs(m.vx) > 0.01 || Math.abs(m.vy) > 0.01) {
+        pointsRef.current.push({ x: m.x, y: m.y, time: now });
+      }
+      pointsRef.current = pointsRef.current.filter((p) => now - p.time < 800);
 
       // 3. If mouse has moved, mask-in the Helmet/Cyber Reveal Layer
       if (pointsRef.current.length > 0 && imagesRef.current.reveal?.complete) {
@@ -398,9 +410,8 @@ function HeroBlobRevealPortrait() {
 
   const handleMouseMove = (e) => {
     const rect = canvasRef.current.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * canvasRef.current.width;
-    const y = ((e.clientY - rect.top) / rect.height) * canvasRef.current.height;
-    pointsRef.current.push({ x, y, time: performance.now() });
+    mouseRef.current.targetX = ((e.clientX - rect.left) / rect.width) * canvasRef.current.width;
+    mouseRef.current.targetY = ((e.clientY - rect.top) / rect.height) * canvasRef.current.height;
   };
 
   return (
@@ -458,8 +469,29 @@ export default function App() {
 
   const mainWrapperRef = useRef(null);
   const sigPathRef = useRef(null);
+  const marquee1Ref = useRef(null);
+  const marquee2Ref = useRef(null);
   const gallerySectionRef = useRef(null);
   const galleryTrackRef = useRef(null);
+  const fanDeckRef = useRef(null);
+
+  
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smooth: true,
+    });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+    gsap.ticker.lagSmoothing(0);
+    return () => {
+      lenis.destroy();
+      gsap.ticker.remove(lenis.raf);
+    };
+  }, []);
 
   // [ZONE 01]: Neon Lime Preloader Timer (00:01 - 00:11)
   useEffect(() => {
@@ -490,9 +522,51 @@ export default function App() {
             scrub: 1,
           },
         });
+        
+        if (marquee1Ref.current && marquee2Ref.current) {
+          gsap.to(marquee1Ref.current, {
+            xPercent: -20,
+            ease: "none",
+            scrollTrigger: {
+              trigger: "#zone-04-signature",
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1,
+            }
+          });
+          gsap.to(marquee2Ref.current, {
+            xPercent: 20,
+            ease: "none",
+            scrollTrigger: {
+              trigger: "#zone-04-signature",
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1,
+            }
+          });
+        }
       }
 
       // [ZONE 06]: Pinned Horizontal Scatter Gallery + Dark-to-Cream Shift (00:40 - 00:48)
+      if (fanDeckRef.current) {
+        const cards = fanDeckRef.current.querySelectorAll('.fan-card');
+        gsap.fromTo(cards, 
+          { rotate: 0, y: 0, x: 0 }, 
+          { 
+            rotate: (i) => (i - 2) * 10,
+            y: (i) => Math.abs(i - 2) * 25,
+            x: (i) => (i - 2) * 45,
+            ease: "back.out(1.5)",
+            scrollTrigger: {
+              trigger: fanDeckRef.current,
+              start: "top 70%",
+              end: "bottom bottom",
+              scrub: 1,
+            }
+          }
+        );
+      }
+      
       if (gallerySectionRef.current && galleryTrackRef.current) {
         gsap.to(galleryTrackRef.current, {
           xPercent: -62,
@@ -539,7 +613,7 @@ export default function App() {
   return (
     <div
       ref={mainWrapperRef}
-      className="bg-[#F4F4ED] text-[#111112] font-sans overflow-x-hidden selection:bg-[#D2FF00] selection:text-[#111112]"
+      className="bg-[#F4F4ED] text-[#111112] font-sans  selection:bg-[#D2FF00] selection:text-[#111112]"
     >
       {/* =====================================================================
           [ZONE 01]: NEON LIME PRELOADER CURTAIN (00:01 - 00:11)
@@ -698,7 +772,7 @@ export default function App() {
             </div>
             <div
               style={{ WebkitTextStroke: "1.5px #F4F4ED", color: "transparent" }}
-              className="whitespace-nowrap text-5xl md:text-7xl font-black uppercase tracking-tighter animate-marquee"
+              ref={marquee2Ref} className="whitespace-nowrap text-5xl md:text-7xl font-black uppercase tracking-tighter"
             >
               {SITE_CONFIG.signatureSection.marqueeLine2}{" "}
               {SITE_CONFIG.signatureSection.marqueeLine2}
@@ -906,7 +980,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto">
           {/* Header Row */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
-            <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9]">
+            <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] block-wipe" style={{clipPath: "inset(0 100% 0 0)"}}>
               {SITE_CONFIG.hallOfFame.titleLine1}
               <br />
               <span className="font-serif italic font-normal text-[#D2FF00]">
