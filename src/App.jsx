@@ -25,8 +25,8 @@ const SITE_CONFIG = {
     roleSecondary: "Automation & Data Science Engineer"
   },
   images: {
-    heroBase: "/portrait.jpg", // Bust cutout against clean bg
-    heroCyber: "/vision_pro_mask.jpg", // Visor/Helmet mask reveal
+    heroBase: `${import.meta.env.BASE_URL}portrait.jpg`, // Bust cutout against clean bg
+    heroCyber: `${import.meta.env.BASE_URL}vision_pro_mask.jpg`, // Visor/Helmet mask reveal
     signaturePortrait: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80",
     splitLeft: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80",
     splitRight: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80",
@@ -78,8 +78,6 @@ function HeroBlobRevealPortrait() {
   useEffect(() => {
     const baseImg = new Image();
     const revealImg = new Image();
-    baseImg.crossOrigin = "anonymous";
-    revealImg.crossOrigin = "anonymous";
     baseImg.src = SITE_CONFIG.images.heroBase;
     revealImg.src = SITE_CONFIG.images.heroCyber;
     imagesRef.current.base = baseImg;
