@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;700;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,9 +7,18 @@
 html { scroll-behavior: smooth; }
 body {
   margin: 0; padding: 0;
-  overflow-x: clip;
+  overflow-x: clip; /* CRITICAL: Fixed GSAP Pinning Issue */
   background-color: #F4F4ED;
+  font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Typography Overrides */
+.font-serif {
+  font-family: 'Instrument Serif', serif;
+}
+.tracking-grotesque {
+  letter-spacing: -0.04em;
 }
 
 /* Preloader Animation */
@@ -32,7 +43,7 @@ body {
 .block-wipe {
   position: relative;
   display: inline-block;
-  color: transparent; /* Text hidden initially */
+  color: transparent; 
 }
 .block-wipe::after {
   content: '';
@@ -45,7 +56,7 @@ body {
 }
 .block-wipe.wiped {
   color: inherit;
-  transition: color 0.1s linear 0.4s; /* Text appears when block covers it */
+  transition: color 0.1s linear 0.4s;
 }
 .block-wipe.wiped::after {
   animation: blockSwipe 1s cubic-bezier(0.76, 0, 0.24, 1) forwards;
@@ -57,15 +68,15 @@ body {
   100% { transform-origin: right; transform: scaleX(0); }
 }
 
-/* Exact Racing Notch for Footer */
+/* Raised Tab Dark Carbon Footer */
 .clip-footer-notch {
   clip-path: polygon(
-    0 3rem, 
-    calc(50% - 6rem) 3rem, 
-    calc(50% - 4.5rem) 0, 
-    calc(50% + 4.5rem) 0, 
-    calc(50% + 6rem) 3rem, 
-    100% 3rem, 
+    0 4rem, 
+    calc(50% - 8rem) 4rem, 
+    calc(50% - 6rem) 0, 
+    calc(50% + 6rem) 0, 
+    calc(50% + 8rem) 4rem, 
+    100% 4rem, 
     100% 100%, 
     0 100%
   );
