@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+const fs = require('fs');
+
+const appContent = `import React, { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from '@studio-freight/lenis';
@@ -18,7 +20,7 @@ function TopographicLines({ dark }) {
                 fill="none" stroke={dark ? "#D2FF00" : "#111112"} strokeWidth="1" strokeDasharray="5,5"/>
         </pattern>
       </defs>
-      <rect width="100%" height="100%" fill={`url(#${dark ? "topo-dark" : "topo-light"})`} />
+      <rect width="100%" height="100%" fill={\`url(#\${dark ? "topo-dark" : "topo-light"})\`} />
     </svg>
   );
 }
@@ -41,9 +43,9 @@ const SITE_CONFIG = {
     roleSecondary: "Automation & Data Science Engineer"
   },
   images: {
-    heroBase: `${import.meta.env.BASE_URL}my-portrait-cutout.png`,
-    heroCyber: `${import.meta.env.BASE_URL}my-helmet-cutout.png`,
-    signaturePortrait: `${import.meta.env.BASE_URL}my-portrait-cutout.png`,
+    heroBase: \`\${import.meta.env.BASE_URL}my-portrait-cutout.png\`,
+    heroCyber: \`\${import.meta.env.BASE_URL}my-helmet-cutout.png\`,
+    signaturePortrait: \`\${import.meta.env.BASE_URL}my-portrait-cutout.png\`,
     splitLeft: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80",
     splitRight: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80",
     bannerLeft: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80",
@@ -328,7 +330,7 @@ export default function App() {
       {/* =========================================================================
           PRELOADER
       ========================================================================= */}
-      <div className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#D2FF00] transition-transform duration-[1200ms] ease-[cubic-bezier(0.87,0,0.13,1)] ${preloaderState === 2 ? '-translate-y-full' : 'translate-y-0'}`} style={{ clipPath: preloaderState === 2 ? 'ellipse(150% 100% at 50% 0%)' : 'none' }}>
+      <div className={\`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#D2FF00] transition-transform duration-[1200ms] ease-[cubic-bezier(0.87,0,0.13,1)] \${preloaderState === 2 ? '-translate-y-full' : 'translate-y-0'}\`} style={{ clipPath: preloaderState === 2 ? 'ellipse(150% 100% at 50% 0%)' : 'none' }}>
         <div className="relative flex items-center justify-center h-40 w-40">
           {preloaderState === 0 ? (
             <svg className="w-24 h-24" viewBox="0 0 100 100">
@@ -354,9 +356,9 @@ export default function App() {
           <button onClick={() => setMenuOpen(!menuOpen)} className="flex items-center gap-2 group hover:text-[#D2FF00] transition-colors">
             <span className="text-xs font-bold tracking-widest uppercase">MENU</span>
             <div className="flex flex-col gap-[3px] w-5">
-              <span className={`w-full h-[2px] bg-current transition-all ${menuOpen ? 'rotate-45 translate-y-[5px]' : ''}`}></span>
-              <span className={`w-full h-[2px] bg-current transition-all ${menuOpen ? 'opacity-0' : ''}`}></span>
-              <span className={`w-full h-[2px] bg-current transition-all ${menuOpen ? '-rotate-45 -translate-y-[5px]' : ''}`}></span>
+              <span className={\`w-full h-[2px] bg-current transition-all \${menuOpen ? 'rotate-45 translate-y-[5px]' : ''}\`}></span>
+              <span className={\`w-full h-[2px] bg-current transition-all \${menuOpen ? 'opacity-0' : ''}\`}></span>
+              <span className={\`w-full h-[2px] bg-current transition-all \${menuOpen ? '-rotate-45 -translate-y-[5px]' : ''}\`}></span>
             </div>
           </button>
         </div>
@@ -518,7 +520,7 @@ export default function App() {
         
         <div className="max-w-[90rem] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-x-6 md:gap-y-16">
           {SITE_CONFIG.flagshipProjects.map((item, idx) => (
-             <div key={idx} className={`group relative w-full aspect-square cursor-pointer ${idx % 2 === 1 ? 'lg:translate-y-14' : ''}`}>
+             <div key={idx} className={\`group relative w-full aspect-square cursor-pointer \${idx % 2 === 1 ? 'lg:translate-y-14' : ''}\`}>
                <div className="w-full h-full bg-[#161718] border border-white/5 group-hover:border-[#D2FF00] transition-colors duration-500 overflow-hidden relative rounded-xl">
                  <img src={item.defaultImg} className="absolute inset-0 w-full h-full object-contain p-12 transition-all duration-700 group-hover:scale-110 group-hover:opacity-0 drop-shadow-2xl" />
                  <img src={item.actionImg} className="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 group-hover:opacity-100 group-hover:scale-105" />
@@ -620,7 +622,7 @@ export default function App() {
         <ul className="flex flex-wrap gap-8 md:gap-16 text-[#F4F4ED] font-black uppercase tracking-widest mt-24 z-10 relative text-sm md:text-base">
           <li><a href={SITE_CONFIG.identity.github} target="_blank" className="hover:text-[#D2FF00] transition-colors">GITHUB</a></li>
           <li><a href={SITE_CONFIG.identity.linkedin} target="_blank" className="hover:text-[#D2FF00] transition-colors">LINKEDIN</a></li>
-          <li><a href={`mailto:${SITE_CONFIG.identity.email}`} className="hover:text-[#D2FF00] transition-colors">EMAIL</a></li>
+          <li><a href={\`mailto:\${SITE_CONFIG.identity.email}\`} className="hover:text-[#D2FF00] transition-colors">EMAIL</a></li>
         </ul>
         
         <div className="absolute bottom-0 w-full h-64 bg-gradient-to-t from-[#D2FF00]/15 to-transparent pointer-events-none"></div>
@@ -659,7 +661,7 @@ export default function App() {
               <div className="w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-[#D2FF00] shadow-[0_0_30px_rgba(210,255,0,0.2)] bg-[#F4F4ED]">
                 <img src={SITE_CONFIG.images.heroBase} className="w-full h-full object-cover object-top hover:scale-110 transition-transform duration-700" />
               </div>
-              <a href={`mailto:${SITE_CONFIG.identity.email}`} className="bg-[#D2FF00] text-[#111112] px-8 py-4 font-black text-xs uppercase tracking-widest hover:scale-105 transition-transform flex items-center gap-2">
+              <a href={\`mailto:\${SITE_CONFIG.identity.email}\`} className="bg-[#D2FF00] text-[#111112] px-8 py-4 font-black text-xs uppercase tracking-widest hover:scale-105 transition-transform flex items-center gap-2">
                 BUSINESS ENQUIRIES <ArrowUpRight className="w-4 h-4" />
               </a>
             </div>
@@ -668,7 +670,7 @@ export default function App() {
               <div className="text-[#F4F4ED] opacity-100">FOLLOW ON</div>
               <a href={SITE_CONFIG.identity.github} className="hover:text-[#D2FF00] transition-colors">GITHUB</a>
               <a href={SITE_CONFIG.identity.linkedin} className="hover:text-[#D2FF00] transition-colors">LINKEDIN</a>
-              <a href={`mailto:${SITE_CONFIG.identity.email}`} className="hover:text-[#D2FF00] transition-colors">EMAIL</a>
+              <a href={\`mailto:\${SITE_CONFIG.identity.email}\`} className="hover:text-[#D2FF00] transition-colors">EMAIL</a>
             </div>
           </div>
           
@@ -690,3 +692,6 @@ export default function App() {
     </div>
   );
 }
+`;
+fs.writeFileSync('src/App.jsx', appContent);
+console.log("Successfully rewrote src/App.jsx with exact 1:1 Landonorris styling");
