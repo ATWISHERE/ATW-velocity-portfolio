@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .clip-notched-top {
+    clip-path: polygon(
+      0 3rem, 
+      calc(50% - 4rem) 3rem, 
+      50% 0, 
+      calc(50% + 4rem) 3rem, 
+      100% 3rem, 
+      100% 100%, 
+      0 100%
+    );
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -9,16 +23,35 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background-color: #111112;
-  color: #F4F4ED;
+  background-color: #F4F4ED;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.liquid-mask {
+  mask-image: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, transparent 30%);
+  -webkit-mask-image: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, transparent 30%);
+}
+
+.signature-path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 25s linear infinite;
 }
 
 @keyframes marquee {
-  0% { transform: translateX(0%); }
-  100% { transform: translateX(-50%); }
+  to { transform: translateX(-50%); }
 }
 
-.animate-marquee {
-  animation: marquee 22s linear infinite;
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
