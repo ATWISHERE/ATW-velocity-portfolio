@@ -1,0 +1,12 @@
+{
+  "name": "landonorris-mirror",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "sirv . --port 5173 --host --single --dev --no-clear",
+    "start": "sirv . --port 5173 --host --single"
+  },
+  "devDependencies": {
+    "sirv-cli": "^2.0.2"
+  }
+}

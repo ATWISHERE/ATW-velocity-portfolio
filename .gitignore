@@ -1,0 +1,8 @@
+_PRIVATE_MANUALS_AND_BACKUP/
+INJECTOR/
+__pycache__/
+*.py[cod]
+.DS_Store
+Thumbs.db
+*.tmp
+*.bak

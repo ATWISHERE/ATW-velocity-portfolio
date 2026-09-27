@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abdul Tarique Warsi — Downloadable Resumes (AI/Python & Robotics/CNC)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #111112; color: #F4F4ED; font-family: 'Inter', system-ui, sans-serif; padding: 32px 20px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .top-bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; border-bottom: 1px solid #2B2D26; padding-bottom: 20px; margin-bottom: 28px; }
+  .back-btn { background: transparent; color: #D2FF00; border: 1px solid #D2FF00; padding: 10px 18px; border-radius: 8px; text-decoration: none; font-weight: 800; font-size: 13px; letter-spacing: 1px; }
+  .dl-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-bottom: 32px; }
+  .dl-card { background: #1A1C16; border: 1px solid #35382E; border-radius: 16px; padding: 24px; }
+  .dl-card h2 { color: #D2FF00; font-size: 18px; margin-bottom: 8px; text-transform: uppercase; }
+  .dl-card p { color: #A5A89E; font-size: 13px; margin-bottom: 18px; line-height: 1.5; }
+  .dl-btn { display: inline-block; background: #D2FF00; color: #111112; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 900; font-size: 13px; letter-spacing: 0.5px; text-transform: uppercase; margin-right: 10px; }
+  iframe { width: 100%; height: 560px; border: 1px solid #2B2D26; border-radius: 10px; margin-top: 16px; background: #fff; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="top-bar">
+      <div>
+        <h1 style="font-size:24px;font-weight:900;letter-spacing:0.5px;">ABDUL TARIQUE WARSI — OFFICIAL RESUMES</h1>
+        <p style="color:#A5A89E;font-size:13px;margin-top:4px;">Jabalpur & Bhopal, MP | +91 8770463418 | abdultarique5@gmail.com | linkedin.com/in/abdul-tarique-warsi</p>
+      </div>
+      <a class="back-btn" href="./index.html" onclick="sessionStorage.setItem('atw_visited_resume','1')">← BACK TO PORTFOLIO</a>
+    </div>
+    <div class="dl-grid">
+      <div class="dl-card">
+        <h2>Resume 1: AI, Python Automation & Data Science</h2>
+        <p>Tailored for Python Developer, RPA/Automation Engineer, Data Analyst, and AI/ML roles (Tkinter, pdfplumber, PyTesseract OCR, PyAutoGUI, Pandas, Scikit-learn, Power BI).</p>
+        <a class="dl-btn" href="./public/resumes/Abdul_Tarique_Warsi_AI_Python_Resume.pdf" download>⬇ Download PDF (AI & Python)</a>
+        <iframe src="./public/resumes/Abdul_Tarique_Warsi_AI_Python_Resume.pdf"></iframe>
+      </div>
+      <div class="dl-card">
+        <h2>Resume 2: Robotics Educator & 5-Axis Precision CNC</h2>
+        <p>Tailored for Robotics/STEM Instructor, 5-Axis DMG MORI CNC Programmer, CAD/CAM (SolidWorks, AutoCAD, PowerMill), and Industrial Automation roles.</p>
+        <a class="dl-btn" href="./public/resumes/Abdul_Tarique_Warsi_Robotics_CNC_Resume.pdf" download>⬇ Download PDF (Robotics & CNC)</a>
+        <iframe src="./public/resumes/Abdul_Tarique_Warsi_Robotics_CNC_Resume.pdf"></iframe>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
